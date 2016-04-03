@@ -1,0 +1,10 @@
+---
+# Additional packages
+#additional_packages:
+#  - curl
+
+user_home_path: "{{ lookup('env','HOME') }}"
+
+# Git global config
+#git_name:
+#git_email:
