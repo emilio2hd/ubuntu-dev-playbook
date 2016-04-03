@@ -22,4 +22,7 @@ EOF
 sudo mv -f /tmp/hosts /etc/ansible/hosts
 fi
 
-sudo ansible-playbook playbook/site.yml --connection=local -s
+# Get current user
+_user="$(id -u -n)"
+
+sudo ansible-playbook playbook/site.yml --connection=local -s --extra-vars "current_user=$_user"

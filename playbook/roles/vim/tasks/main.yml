@@ -12,8 +12,11 @@
   get_url: url=https://tpo.pe/pathogen.vim dest={{ vim_autoload_path }}/pathogen.vim
 
 - name: Create ~/.vimrc
-  template: src=vimrc.j2 dest={{ user_home_path }}/.vimrc
+  template: src=vimrc.j2 dest={{ user_home_path }}/.vimrc owner={{ user }} group={{ group_name }}
 
 - name: Install plugins
   git: repo={{ item.git }} dest={{ vim_bundle_path }}/{{ item.name }} version=master accept_hostkey=yes
   with_items: vim_plugins
+
+- name: Change owner
+  file: {{ vim_bundle_path }}/{{ item.name }} owner={{ user }} group={{ group_name }}

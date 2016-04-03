@@ -1,6 +1,8 @@
 ---
 - hosts: all
   gather_facts: no
+  remote_user: '{{ current_user }}'
   roles:
     - base
     - vim
+    - ohmyzsh

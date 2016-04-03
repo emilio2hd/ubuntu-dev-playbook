@@ -1,0 +1,25 @@
+---
+## Install Oh-my-zsh
+- name: Install git and zsh 
+  apt: name=zsh state=latest update_cache=yes
+
+- name: Clone oh-my-zsh repo
+  git: repo=https://github.com/robbyrussell/oh-my-zsh.git dest={{ user_home_path }}/.oh-my-zsh accept_hostkey=yes
+
+- name: Change owner
+  file: {{ user_home_path }}/.oh-my-zsh owner={{ user }} group={{ group_name }}
+
+- name: Create conf folder in home directory
+  file: path={{ user_home_path }}/conf/ state=directory owner={{ user }} group={{ group_name }}
+
+- name: deploy .zshrc
+  template: src=zshrc.j2 dest={{ user_home_path }}/conf/zshrc owner={{ user }} group={{ group_name }}
+
+- name: remove standard zshrc
+  file: path={{ user_home_path }}/.zshrc state=absent
+
+- name: symlink zshrc
+  file: path={{ user_home_path }}/.zshrc src={{ user_home_path }}/conf/zshrc state=link owner={{ user }} group={{ group_name }}
+
+- name: Set zsh as default shell
+  user: name={{ user }} shell=/bin/zsh
