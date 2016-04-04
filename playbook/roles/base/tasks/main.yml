@@ -6,6 +6,8 @@
   apt: name={{ item }}
   with_items:
     - autoconf
+    - tar
+    - unzip
     - bison
     - build-essential
     - libssl-dev
