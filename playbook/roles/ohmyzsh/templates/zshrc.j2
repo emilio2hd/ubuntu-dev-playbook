@@ -9,7 +9,11 @@ export TERM="xterm-256color"
 # Optionally, if you set this to "random", it'll load a random theme each
 # time that oh-my-zsh is loaded.
 # ZSH_THEME="steeef"
-ZSH_THEME="{{ zsh_theme }}"
+ZSH_THEME="powerlevel9k/powerlevel9k"
+
+POWERLEVEL9K_MODE='awesome-fontconfig'
+POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(dir vcs)
+POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(status)
 
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
@@ -42,5 +46,3 @@ source $ZSH/oh-my-zsh.sh
 
 # Customize to your needs...
 export PATH=/usr/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games
-
-PATH=$PATH:{{ user_home_path }}/.rvm/bin # Add RVM to PATH for scripting

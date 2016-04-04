@@ -10,5 +10,3 @@ user_home_path: "{{ lookup('env','HOME') }}"
 # Git global config
 #git_name:
 #git_email:
-
-zsh_theme: steeef
