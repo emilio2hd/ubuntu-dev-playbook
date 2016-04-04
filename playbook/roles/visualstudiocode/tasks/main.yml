@@ -1,0 +1,14 @@
+- name: Download vscode.zip stable
+  get_url: url=https://vscode-update.azurewebsites.net/latest/linux-x64/stable  dest=/tmp/VSCode-linux-x64.zip
+  
+- name: Unzip vscode to /opt
+  unarchive: src=/tmp/VSCode-linux-x64.zip dest=/opt copy=no
+
+- name: Creating link to run VS Code from the terminal
+  file: src=/opt/VSCode-linux-x64/code dest=/usr/local/bin/code state=link
+
+- name: Removing temp file
+  file: path=/tmp/VSCode-linux-x64.zip state=absent
+  
+- name: Create VSC desktop menu link
+  template: src=visual-studio-code.j2 dest=/usr/share/applications/visual-studio-code.desktop
