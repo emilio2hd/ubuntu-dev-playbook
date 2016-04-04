@@ -14,9 +14,13 @@
 - name: Create ~/.vimrc
   template: src=vimrc.j2 dest={{ user_home_path }}/.vimrc owner={{ user }} group={{ group_name }}
 
-- name: Install plugins
-  git: repo={{ item.git }} dest={{ vim_bundle_path }}/{{ item.name }} version=master accept_hostkey=yes
-  with_items: vim_plugins
+- name: Check if already exists vim plugins
+  stat: path={{ vim_bundle_path }}/{{ item.name }}
+  with_items: "{{ vim_plugins }}"
+  register: plugin_stat
 
-- name: Change owner
-  file: {{ vim_bundle_path }}/{{ item.name }} owner={{ user }} group={{ group_name }}
+- name: Download vim plugins
+  git: repo={{ item.item.git }} dest={{ vim_bundle_path }}/{{ item.item.name }} version=master accept_hostkey=yes
+  with_items: "{{ plugin_stat['results'] }}"
+  no_log: True
+  when: item.stat | default(false) and item.stat.exists == False
