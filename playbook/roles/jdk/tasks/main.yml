@@ -1,0 +1,26 @@
+---
+- name: Check if Oracle Java is installed
+  shell: javac -version 2>&1 | grep -q '^javac 1\.{{ java_version }}\.'
+  register: java_installed
+  ignore_errors: yes
+
+- name: Add oracle java repository
+  apt_repository: repo='{{ppa_repository}}'
+  sudo: yes
+  when: java_installed|failed
+
+- name: Accept oracle license
+  shell: "echo oracle-java{{ java_version }}-installer shared/accepted-oracle-license-v1-1 select true | sudo /usr/bin/debconf-set-selections"
+  changed_when: no
+  sudo: yes
+  when: java_installed|failed
+
+- name: Install Oracle Java
+  apt: name="oracle-java{{ java_version }}-installer" state=present
+  sudo: yes
+  when: java_installed|failed
+
+- name: Set Java version as default
+  apt: name="oracle-java{{ java_version }}-set-default" state=latest
+  sudo: yes
+  when: java_installed|failed
