@@ -10,13 +10,13 @@
     - autoconf
     - bison
     - build-essential
-    - libssl-dev
+    - htop
     - libffi-dev
+    - libssl-dev
+    - libyaml-dev
     - python3-dev
     - python3-venv
-    - libyaml-dev
-    - htop
-    - tree
-    - wget
     - tmux
+    - tree
     - ttf-mscorefonts-installer
+    - wget
