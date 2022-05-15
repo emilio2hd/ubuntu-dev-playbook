@@ -1,0 +1,7 @@
+---
+# Directories to be created in home folder
+home_directories:
+  - dev
+  - docker-apps
+  - .bin
+  - .rails_template

@@ -1,0 +1,19 @@
+---
+- hosts: all
+
+  vars_files:
+    - config.yml
+
+  pre_tasks:
+    - include_vars: "{{ item }}"
+      with_fileglob:
+        - "{{ playbook_dir }}/extra-config.yml"
+      tags: ['always']
+
+  roles:
+    - role: dependencies
+      tags: ['deps']
+    - role: directories
+      tags: ['dirs']
+    - role: terminal
+      tags: ['terminal']

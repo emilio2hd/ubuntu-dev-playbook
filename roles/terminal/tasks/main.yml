@@ -1,0 +1,4 @@
+---
+- name: Installing Alacritty
+  become: True
+  shell: "snap install alacritty --classic"
