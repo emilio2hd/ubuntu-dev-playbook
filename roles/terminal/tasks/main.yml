@@ -8,7 +8,10 @@
 
 - name: Update apt cache
   become: True
-  apt: name=alacritty
+  apt: name={{ item }}
+  with_items:
+    - alacritty
+    - zsh
 
 - name: Downloading nerd fonts
   ansible.builtin.git:
