@@ -5,3 +5,5 @@ home_directories:
   - docker-apps
   - .bin
   - .rails_template
+
+git_config: {}

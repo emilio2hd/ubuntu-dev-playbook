@@ -1,0 +1,4 @@
+---
+git_config:
+  name: Some name
+  email: some@email.com

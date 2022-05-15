@@ -1,0 +1,17 @@
+# Folder view configuration files
+.DS_Store
+Desktop.ini
+
+# Application specific files
+venv
+node_modules
+.sass-cache
+.vscode
+.idea
+
+# Debug logs
+*.log
+
+# OS files
+Thumbs.db
+.DS_Store

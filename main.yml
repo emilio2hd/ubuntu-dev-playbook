@@ -15,5 +15,7 @@
       tags: ['deps']
     - role: directories
       tags: ['dirs']
+    - role: git
+      tags: ['git']
     - role: terminal
       tags: ['terminal']

@@ -1,0 +1,15 @@
+---
+- name: Copy git files to home
+  copy:
+    src: "{{item}}"
+    dest: "{{ansible_env.HOME}}/.{{item}}"
+  with_items:
+    - gitignore
+    - gitattributes
+    - gitconfig
+
+- name: Creating .gitconfig.local file
+  template:
+    src: gitconfig.local.j2
+    dest: "{{ansible_env.HOME}}/.gitconfig.local"
+  when: git_config
