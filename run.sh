@@ -4,8 +4,6 @@
 which python3 > /dev/null 2>&1
 if [[ $? != 0 ]] ; then
   sudo apt update && sudo apt -y upgrade && sudo apt -y autoremove
-  sudo apt install software-properties-common -y
-  sudo apt install -y python3-pip
 fi
 
 which python3 > /dev/null 2>&1
@@ -14,9 +12,15 @@ if [[ $? != 0 ]] ; then
   exit 1
 fi
 
+which pip3 > /dev/null 2>&1
+if [[ $? != 0 ]] ; then
+  sudo apt install software-properties-common -y
+  sudo apt install -y python3-pip
+fi
+
 which ansible > /dev/null 2>&1
 if [[ $? != 0 ]] ; then
-  pip3 install ansible
+  sudo pip3 install ansible
 fi
 
 ansible-galaxy install -r requirements.yml
