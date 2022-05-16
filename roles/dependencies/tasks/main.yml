@@ -10,6 +10,7 @@
     - autoconf
     - bison
     - build-essential
+    - curl
     - htop
     - libffi-dev
     - libssl-dev

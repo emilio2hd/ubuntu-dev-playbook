@@ -1,0 +1,14 @@
+---
+- name: Create alacritty config dir
+  file:
+    path: ~/.config/alacritty
+    state: directory
+
+- name: Copy alacritty config files
+  copy:
+    src: "alacritty/{{item}}"
+    dest: "~/.config/alacritty/{{item}}"
+  with_items:
+    - alacritty.yml
+    - dracula.yml
+    - rigel.yml

@@ -1,0 +1,25 @@
+---
+- name: Add alacritty repository from PPA
+  become: True
+  ansible.builtin.apt_repository:
+    repo: ppa:aslatter/ppa
+    codename: focal
+    update_cache: True
+
+- name: Install terminal dependencies
+  become: True
+  apt: name={{ item }}
+  with_items:
+    - alacritty
+    - zsh
+
+- name: Downloading nerd fonts
+  ansible.builtin.git:
+    repo: https://github.com/ryanoasis/nerd-fonts.git
+    dest: ~/.cache/nerd-fonts
+
+- name: Install Meslo font
+  ansible.builtin.shell: ./install.sh Meslo
+  args:
+    chdir: "{{ansible_env.HOME}}/.cache/nerd-fonts"
+    executable: /bin/bash

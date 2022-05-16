@@ -1,0 +1,57 @@
+---
+- name: Set login shell of user {{ ansible_env.USER }} to `/usr/bin/zsh`
+  ansible.builtin.command: usermod --shell /usr/bin/zsh {{ ansible_env.USER }}
+  become: true
+  changed_when: false
+
+- name: Check if oh my zsh is installed
+  stat:
+    path: "{{ansible_env.HOME}}/.oh-my-zsh"
+  register: ohmyzsh_folder
+
+- name: Installing oh my zsh
+  shell: curl -sL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh | bash -
+  args:
+    warn: no
+  when: not ohmyzsh_folder.stat.exists
+
+- name: Ensure directories zsh permission
+  file:
+    path: "{{ item }}"
+    mode: '0755'
+  with_items:
+    - /usr/local/share/zsh
+    - /usr/local/share/zsh/site-functions
+
+- name: Copy dot files
+  copy:
+    src: "zsh/{{item}}"
+    dest: "{{ansible_env.HOME}}/.{{item}}"
+  with_items:
+    - zshenv
+    - _zshaliases
+    - p10k.zsh
+
+- name: Creating .zshrc file
+  template:
+    src: zsh/zshrc.j2
+    dest: "{{ansible_env.HOME}}/.zshrc"
+
+- name: Creating empty ~/.zshrc.local
+  file:
+    path: "{{ansible_env.HOME}}/.zshrc.local"
+    state: touch
+
+- set_fact:
+    zsh_plugins_path: "{{ansible_env.HOME}}/.oh-my-zsh/custom/plugins"
+    zsh_themes_path: "{{ansible_env.HOME}}/.oh-my-zsh/custom/themes"
+
+- name: Install oh-my-zsh plugins
+  git: repo={{ item.git }} dest={{ zsh_plugins_path }}/{{ item.name }} version=master accept_hostkey=yes
+  with_items:
+    - { name: zsh-autosuggestions, git: "https://github.com/zsh-users/zsh-autosuggestions.git" }
+    - { name: zsh-syntax-highlighting, git: "https://github.com/zsh-users/zsh-syntax-highlighting.git" }
+
+- name: Install oh-my-zsh powerlevel10k theme
+  git: repo=https://github.com/romkatv/powerlevel10k.git dest={{ zsh_themes_path }}/powerlevel10k version=master accept_hostkey=yes
+  

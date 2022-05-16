@@ -9,7 +9,7 @@
 # All imports must either be absolute paths starting with `/`, or paths relative
 # to the user's home directory starting with `~/`.
 import:
- - ~/.config/alacritty/dracula.yml
+ - ~/.config/alacritty/rigel.yml
 
 # Any items in the `env` entry below will be added as
 # environment variables. Some entries may override variables
@@ -603,7 +603,7 @@ cursor:
 # in the order they were defined in.
 key_bindings:
   - { key: V,         mods: Control,                    action: Paste          }
-  - { key: C,         mods: Control,                    action: Copy           }
+  #- { key: C,         mods: Control,                    action: Copy           }
   #- { key: Copy,                                        action: Copy           }
   #- { key: L,         mods: Control,                    action: ClearLogNotice }
   #- { key: L,         mods: Control, mode: ~Vi|~Search, chars: "\x0c"          }
