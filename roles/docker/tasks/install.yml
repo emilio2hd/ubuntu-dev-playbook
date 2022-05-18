@@ -1,0 +1,36 @@
+---
+- name: Add official docker repository GPG key
+  become: True
+  ansible.builtin.apt_key:
+    url: https://download.docker.com/linux/ubuntu/gpg
+
+- name: Add docker repository into sources list
+  become: True
+  ansible.builtin.apt_repository:
+    repo: deb [arch=amd64] https://download.docker.com/linux/ubuntu focal stable
+
+- name: Install docker
+  become: True
+  apt:
+    update_cache: True
+    name: docker-ce
+
+- name: Set login shell of user {{ ansible_env.USER }} to `/usr/bin/zsh`
+  ansible.builtin.command: usermod --shell /usr/bin/zsh {{ ansible_env.USER }}
+  become: True
+  changed_when: False
+
+- name: Add current user to docker group
+  become: True
+  ansible.builtin.shell: usermod -aG docker {{ ansible_user_id }}
+
+- name: Install docker python package
+  pip:
+    name: "{{item}}"
+  with_items:
+    - docker
+    - docker-compose
+
+- name: Create docker external network
+  community.docker.docker_network:
+    name: "{{docker_apps.dck_net_name}}"

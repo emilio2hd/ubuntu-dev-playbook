@@ -19,3 +19,5 @@
       tags: ['git']
     - role: terminal
       tags: ['terminal']
+    - role: docker
+      tags: ['dck']

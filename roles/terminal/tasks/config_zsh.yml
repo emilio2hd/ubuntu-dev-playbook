@@ -1,8 +1,8 @@
 ---
 - name: Set login shell of user {{ ansible_env.USER }} to `/usr/bin/zsh`
   ansible.builtin.command: usermod --shell /usr/bin/zsh {{ ansible_env.USER }}
-  become: true
-  changed_when: false
+  become: True
+  changed_when: False
 
 - name: Check if oh my zsh is installed
   stat:

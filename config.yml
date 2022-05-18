@@ -6,4 +6,15 @@ home_directories:
   - .bin
   - .rails_template
 
+# git_config:
+#   name: <name>
+#   email: <email>
 git_config: {}
+
+# Docker Containers
+docker_apps:
+  folder: "{{ansible_env.HOME}}/docker-apps"
+  dck_net_name: dck_local_net
+  postgres:
+    db_user: pg
+    db_password: 123456

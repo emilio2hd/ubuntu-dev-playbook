@@ -37,7 +37,7 @@
     - wget
 
 - name: Install programs
-  become: true
+  become: True
   community.general.snap:
     name:
       - keepassxc
