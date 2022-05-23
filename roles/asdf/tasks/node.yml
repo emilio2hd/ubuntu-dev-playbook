@@ -1,0 +1,38 @@
+---
+- name: Install asdf-nodejs dependencies
+  become: True
+  apt: name={{ item }}
+  with_items:
+    - dirmngr 
+    - gpg 
+    - gawk
+
+- name: "Check node plugin is installed" 
+  shell: asdf plugin list
+  register: plugins_list
+
+- name: Install asdf-nodejs plugin
+  shell: asdf plugin add nodejs
+  when: plugins_list.stdout.find('nodejs') == -1
+
+- name: "Check installed node versions" 
+  shell: asdf list nodejs
+  register: nodejs_versions
+
+- name: Installing node js
+  shell: "asdf install nodejs {{item}}"
+  when: "nodejs_versions.stdout.find(item) == -1"
+  with_items: "{{node_config.versions}}"
+
+- name: Setting default node js version
+  shell: "asdf global nodejs {{node_config.default_version}}"
+
+- name: Install yarn plugin
+  shell: asdf plugin add yarn
+  when: plugins_list.stdout.find('yarn') == -1
+
+- name: Install yarn plugin
+  shell: "asdf install yarn {{node_config.yarn_version}}"
+
+- name: Setting default yarn version
+  shell: "asdf global yarn {{node_config.yarn_version}}"

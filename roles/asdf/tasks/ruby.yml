@@ -1,0 +1,53 @@
+---
+- name: Install asdf-ruby dependencies
+  become: True
+  apt: name={{ item }}
+  with_items:
+    - autoconf
+    - bison
+    - build-essential
+    - libdb-dev
+    - libffi-dev
+    - libgdbm6
+    - libgdbm-dev
+    - libncurses5-dev
+    - libssl-dev
+    - libreadline6-dev
+    - libyaml-dev
+    - zlib1g-dev
+
+- name: "Check ruby plugin is installed" 
+  shell: "asdf plugin list"
+  register: plugins_list
+
+- name: Install asdf-ruby plugin
+  shell: asdf plugin add ruby https://github.com/asdf-vm/asdf-ruby.git
+  when: plugins_list.stdout.find('ruby') == -1
+
+- name: "Check installed ruby versions" 
+  shell: "asdf list ruby"
+  register: ruby_versions
+
+- name: "Installing ruby versions"
+  shell: "asdf install ruby {{item}}"
+  when: "ruby_versions.stdout.find(item) == -1"
+  with_items: "{{ruby_config.versions}}"
+
+- name: Setting default ruby version
+  shell: "asdf global ruby {{ruby_config.default_version}}"
+
+- name: Checkout rails_template repo
+  ansible.builtin.git:
+    force: yes
+    repo: "{{ruby_config.rails_template_repo}}"
+    dest: "{{ruby_config.rails_template_path}}"
+
+- name: Create .railsrc file
+  template:
+    src: ruby/railsrc.j2
+    dest: "{{ruby_config.rails_template_path}}/.railsrc"
+
+- name: Overwrite rails_template/env.example file
+  template:
+    src: ruby/rails_template/env.example.j2
+    dest: "{{ruby_config.rails_template_path}}/env.example.tt"

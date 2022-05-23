@@ -2,3 +2,17 @@
 git_config:
   name: Some name
   email: some@email.com
+
+node_config:
+  default_version: 14.15.0
+  yarn_version: 1.22.19
+  versions:
+    - 14.15.0
+
+# Ruby
+ruby_config:
+  default_version: 3.0.4
+  rails_template_repo: https://github.com/emilio2hd/rails_template.git
+  rails_template_path: "{{ansible_env.HOME}}/.rails_template"
+  versions:
+    - 3.0.4

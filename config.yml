@@ -18,3 +18,19 @@ docker_apps:
   postgres:
     db_user: pg
     db_password: 123456
+
+
+# Node
+# node_config:
+#   default_version:
+#   yarn_version:
+#   versions: []
+node_config: {}
+
+# Ruby
+# ruby_config:
+#   default_version:
+#   rails_template_repo: 
+#   rails_template_path:
+#   versions: []
+ruby_config: {}

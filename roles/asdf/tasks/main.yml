@@ -1,0 +1,20 @@
+---
+- name: Clonning asdf
+  git: repo="https://github.com/asdf-vm/asdf.git" dest={{ansible_env.HOME}}/.asdf version=v0.10.0 accept_hostkey=yes
+
+- name: Asdf info
+  shell: asdf info
+  register: output
+
+- ansible.builtin.debug:
+    var: output
+
+- name: Install and config nodejs
+  include_tasks: node.yml
+  when: node_config
+  tags: ['node']
+
+- name: Install and config ruby
+  include_tasks: ruby.yml
+  when: ruby_config
+  tags: ['ruby']

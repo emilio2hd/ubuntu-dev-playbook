@@ -14,18 +14,12 @@
   apt: name={{ item }}
   with_items:
     - apt-transport-https
-    - autoconf
-    - bison
-    - build-essential
     - ca-certificates
-    - curl    
+    - curl
     - htop
     - imagemagick
-    - libffi-dev
     - libmcrypt-dev
-    - libssl-dev
     - libpq-dev
-    - libyaml-dev
     - python3-dev
     - python3-venv
     - snapd
@@ -35,6 +29,7 @@
     - vim
     - vlc
     - wget
+    - zlib1g-dev
 
 - name: Install programs
   become: True
