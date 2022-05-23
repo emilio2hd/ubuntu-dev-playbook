@@ -30,7 +30,19 @@ node_config: {}
 # Ruby
 # ruby_config:
 #   default_version:
-#   rails_template_repo: 
+#   rails_template_repo:
 #   rails_template_path:
 #   versions: []
 ruby_config: {}
+
+# Visual studio code
+vscode_extensions:
+  - dbaeumer.vscode-eslint
+  - eamodio.gitlens
+  - ms-azuretools.vscode-docker
+  - yzhang.markdown-all-in-one
+  - ryu1kn.partial-diff
+  - rebornix.ruby
+  - castwide.solargraph
+  - connorshea.vscode-ruby-test-adapter
+  - ms-vsliveshare.vsliveshare

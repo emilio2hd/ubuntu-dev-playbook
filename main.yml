@@ -23,3 +23,5 @@
       tags: ['dck']
     - role: asdf
       tags: ['asdf']
+    - role: vscode
+      tags: ['code']

@@ -1,0 +1,25 @@
+---
+- name: Add official microsoft repository GPG key
+  become: True
+  ansible.builtin.apt_key:
+    url: https://packages.microsoft.com/keys/microsoft.asc
+
+- name: Add vscode repository into sources list
+  become: True
+  ansible.builtin.apt_repository:
+    repo: deb [arch=amd64] https://packages.microsoft.com/repos/vscode stable main
+
+- name: Install vscode
+  become: True
+  apt:
+    update_cache: True
+    name: code
+
+- name: Copy vscode settings.json
+  copy:
+    src: "settings.json"
+    dest: "{{ansible_env.HOME}}/.config/Code/User/settings.json"
+
+- name: Installing vscode extensions
+  shell: "/usr/bin/code --install-extension {{item}}"
+  with_items: "{{vscode_extensions}}"
