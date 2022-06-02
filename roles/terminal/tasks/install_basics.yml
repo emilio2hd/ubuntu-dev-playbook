@@ -12,6 +12,27 @@
   with_items:
     - alacritty
     - zsh
+    - fzf
+    - fd-find
+    - ripgrep
+
+- name: Install bat tool
+  become: True
+  apt:
+    name: bat
+    dpkg_options: 'force-overwrite'
+
+- name: Creating bat symlink
+  ansible.builtin.file:
+    src: "/usr/bin/batcat"
+    dest: "{{ansible_env.HOME}}/.local/bin/bat"
+    state: link
+
+- name: Creating fd symlink
+  ansible.builtin.file:
+    src: "/usr/bin/fdfind"
+    dest: "{{ansible_env.HOME}}/.local/bin/fd"
+    state: link
 
 - name: Downloading nerd fonts
   ansible.builtin.git:

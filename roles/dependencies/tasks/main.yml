@@ -1,6 +1,6 @@
 ---
-- name: Enable snap 
-  become: True  
+- name: Enable snap
+  become: True
   ansible.builtin.file:
     path: /etc/apt/preferences.d/nosnap.pref
     state: absent

@@ -23,8 +23,10 @@ HISTSIZE=1000
 SAVEHIST=1000
 HISTFILE=~/.zsh_history
 ZSH_THEME="powerlevel10k/powerlevel10k"
+export FZF_DEFAULT_OPTS='--height 50% --layout=reverse'
+export FZF_DEFAULT_COMMAND='fd --type f'
 
-plugins=(git wd docker dotenv docker-compose rails zsh-autosuggestions zsh-syntax-highlighting tmux asdf)
+plugins=(git wd docker dotenv docker-compose rails zsh-autosuggestions zsh-syntax-highlighting tmux asdf fzf)
 
 source $ZSH/oh-my-zsh.sh
 
