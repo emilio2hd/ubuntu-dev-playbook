@@ -34,6 +34,12 @@
     dest: "{{ansible_env.HOME}}/.local/bin/fd"
     state: link
 
+- name: Creating a file with content
+  copy:
+    dest: "{{ansible_env.HOME}}/.fdignore"
+    content: |
+      .git
+
 - name: Downloading nerd fonts
   ansible.builtin.git:
     repo: https://github.com/ryanoasis/nerd-fonts.git
